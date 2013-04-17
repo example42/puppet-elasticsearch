@@ -34,6 +34,7 @@ class elasticsearch::service {
         hasstatus  => $elasticsearch::service_status,
         pattern    => $elasticsearch::process,
         noop       => $elasticsearch::bool_noops,
+        provider   => 'init',
       }
     }
 
