@@ -16,11 +16,11 @@ class elasticsearch::user {
     home       => $elasticsearch::home,
     shell      => '/bin/bash',
   }
-  @group { $elasticsearch::process_group :
-    ensure     => $elasticsearch::manage_file,
-  }
+#  @group { $elasticsearch::process_group :
+#    ensure     => $elasticsearch::manage_file,
+#  }
 
   User <| title == $elasticsearch::process_user |>
-  Group <| title == $elasticsearch::process_group |>
+#  Group <| title == $elasticsearch::process_group |>
 
 }
