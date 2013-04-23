@@ -19,6 +19,7 @@ class elasticsearch::params {
   $install_prerequisites = true
   $create_user           = true
   $install               = 'source'
+  $java_opts             = undef
 
   $install_source        = ''
   $install_destination   = '/opt'
@@ -46,6 +47,10 @@ class elasticsearch::params {
   }
 
   $process_user = $::operatingsystem ? {
+    default => 'elasticsearch',
+  }
+
+  $process_group = $::operatingsystem ? {
     default => 'elasticsearch',
   }
 

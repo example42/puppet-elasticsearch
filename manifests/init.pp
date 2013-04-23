@@ -181,7 +181,10 @@
 #   Used only in case the elasticsearch process name is generic (java, ruby...)
 #
 # [*process_user*]
-#   The name of the user elasticsearch runs with. Used by puppi and monitor.
+#   The name of the user elasticsearch runs with.
+#
+# [*process_group*]
+#   The name of the group elasticsearch runs with.
 #
 # [*config_dir*]
 #   Main configuration directory. Used by puppi
@@ -265,6 +268,7 @@ class elasticsearch (
   $process               = params_lookup( 'process' ),
   $process_args          = params_lookup( 'process_args' ),
   $process_user          = params_lookup( 'process_user' ),
+  $process_group         = params_lookup( 'process_group' ),
   $config_dir            = params_lookup( 'config_dir' ),
   $config_file           = params_lookup( 'config_file' ),
   $config_file_mode      = params_lookup( 'config_file_mode' ),
