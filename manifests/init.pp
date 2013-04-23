@@ -378,7 +378,7 @@ class elasticsearch (
   $real_config_file = $elasticsearch::config_file ? {
     ''      => $elasticsearch::install ? {
       package => '/etc/elasticsearch/elasticsearch.yml',
-      default => "${elasticsearch::home}/config/elasticsearch.yml",
+      default => "${elasticsearch::home}/elasticsearch.yml",
     },
     default => $elasticsearch::config_file,
   }
