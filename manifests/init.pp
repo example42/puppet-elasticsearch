@@ -36,6 +36,12 @@
 #   Used if install => "source" or "puppi"
 #   Can be defined also by the variable $elasticsearch_install_destination
 #
+# [*init_config_template*]
+#   Template file used for /etc/sysconfig|default/elasticsearch
+#
+# [*init_script_template*]
+#   Template file used for /etc/init.d/elasticsearch
+#
 # [*my_class*]
 #   Name of a custom class to autoload to manage module's customizations
 #   If defined, elasticsearch class will automatically "include $my_class"
@@ -378,7 +384,7 @@ class elasticsearch (
   $real_config_file = $elasticsearch::config_file ? {
     ''      => $elasticsearch::install ? {
       package => '/etc/elasticsearch/elasticsearch.yml',
-      default => "${elasticsearch::home}/elasticsearch.yml",
+      default => "${elasticsearch::home}/config/elasticsearch.yml",
     },
     default => $elasticsearch::config_file,
   }

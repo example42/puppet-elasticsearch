@@ -19,7 +19,7 @@ while [ -h "$SCRIPT" ] ; do
 done
 
 # determine elasticsearch home
-ES_HOME=`dirname "$SCRIPT"`/../..
+ES_HOME=<%= scope.lookupvar('elasticsearch::home') %>
 
 # make ELASTICSEARCH_HOME absolute
 export ES_HOME=`cd $ES_HOME; pwd`

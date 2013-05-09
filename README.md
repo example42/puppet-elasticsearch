@@ -8,6 +8,8 @@ Official site: http://www.example42.com
 
 Official git repository: http://github.com/example42/puppet-elasticsearch
 
+Module development sponsored by [AllOver.IO](http://www.allover.io)
+
 Released under the terms of Apache 2 License.
 
 This module requires functions provided by the Example42 Puppi module (you need it even if you don't use and install Puppi)
@@ -33,6 +35,13 @@ For detailed info about the logic and usage patterns of Example42 modules check 
           init_script_template  => 'site/elasticsearch/elasticsearch.init.erb',
           init_config_template  => 'site/elasticsearch/elasticsearch.conf.erb',
           template              => 'site/elasticsearch/elasticsearch.yml.erb',
+        }
+
+* Install without creating elastisearch user and providing in custom ways the modules' prerequisites. Note: Be user to have user and prerequisites created before elasticsearch
+
+        class { 'elasticsearch':
+          install_prerequisites  => false,
+          create_user            => false,
         }
 
 * Disable elasticsearch service.

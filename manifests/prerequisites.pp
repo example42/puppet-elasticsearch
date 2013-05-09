@@ -22,7 +22,7 @@ class elasticsearch::prerequisites {
     git::reposync { 'elasticsearch-servicewrapper':
       source_url      => 'https://github.com/elasticsearch/elasticsearch-servicewrapper.git',
       destination_dir => "${elasticsearch::install_destination}/elasticsearch-servicewrapper",
-      post_command    => "cp -a ${elasticsearch::install_destination}/elasticsearch-servicewrapper/service ${elasticsearch::home}/bin ; chown -R ${elasticsearch::process_user}:${elasticsearch::process_user} ${elasticsearch::home}/bin/service",
+      post_command    => "cp -a ${elasticsearch::install_destination}/elasticsearch-servicewrapper/service/ ${elasticsearch::home}/bin ; chown -R ${elasticsearch::process_user}:${elasticsearch::process_user} ${elasticsearch::home}/bin/service",
       require         => Class['elasticsearch::install'],
       before          => [ Class['elasticsearch::service'] , Class['elasticsearch::config'] ],
     }
