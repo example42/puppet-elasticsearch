@@ -12,7 +12,7 @@ class elasticsearch::user {
     ensure     => $elasticsearch::manage_file,
     comment    => "${elasticsearch::process_user} user",
     password   => '!',
-    managehome => true,
+    managehome => false,
     home       => $elasticsearch::home,
     shell      => '/bin/bash',
   }
