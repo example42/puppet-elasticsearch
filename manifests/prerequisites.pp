@@ -24,6 +24,7 @@ class elasticsearch::prerequisites {
       destination_dir => "${elasticsearch::install_destination}/elasticsearch-servicewrapper",
       post_command    => "cp -a ${elasticsearch::install_destination}/elasticsearch-servicewrapper/service/ ${elasticsearch::home}/bin ; chown -R ${elasticsearch::process_user}:${elasticsearch::process_user} ${elasticsearch::home}/bin/service",
       require         => Class['elasticsearch::install'],
+      creates         => "${elasticsearch::home}/bin/service",
       before          => [ Class['elasticsearch::service'] , Class['elasticsearch::config'] ],
     }
     file { "${elasticsearch::home}/bin/service/elasticsearch":
