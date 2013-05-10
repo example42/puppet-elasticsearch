@@ -411,7 +411,8 @@ class elasticsearch (
   }
 
   class { 'elasticsearch::config':
-    notify => $elasticsearch::manage_service_autorestart,
+    notify  => $elasticsearch::manage_service_autorestart,
+    require => Class['elasticsearch::install'],
   }
 
   ### Include custom class if $my_class is set
