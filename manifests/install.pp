@@ -16,10 +16,37 @@ class elasticsearch::install {
   case $elasticsearch::install {
 
     package: {
+
+      if ($elasticsearch::package_source != '') or ($elasticsearch::package_source == undef) {
+        case $elasticsearch::package_source {
+          /^http/: {
+            exec {
+              "wget elasticsearch package":
+                command => "wget -O ${elasticsearch::real_package_path} ${elasticsearch::package_source}",
+                creates => "${elasticsearch::real_package_path}",
+                unless  => "test -f ${elasticsearch::real_package_path}",
+                before  => Package['elasticsearch']
+            }
+          }
+          /^puppet/: {
+            file {
+              'elasticsearch package':
+                path    => "${elasticsearch::real_package_path}",
+                ensure  => $elasticsearch::manage_file,
+                source  => $elasticsearch::package_source,
+                before  => Package['elasticsearch']
+            }
+          }
+          default: {}
+        }
+      }
+
       package { 'elasticsearch':
-        ensure => $elasticsearch::manage_package,
-        name   => $elasticsearch::package,
-        noop   => $elasticsearch::bool_noops,
+        ensure    => $elasticsearch::manage_package,
+        name      => $elasticsearch::package,
+        provider  => $elasticsearch::package_provider,
+        source    => $elasticsearch::real_package_path,
+        noop      => $elasticsearch::bool_noops,
       }
     }
 

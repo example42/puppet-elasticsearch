@@ -13,6 +13,16 @@ describe 'elasticsearch' do
     it { should contain_file('elasticsearch.conf').with_ensure('present') }
   end
 
+  describe 'Test custom package source http://' do
+    let(:params) { {:package_source => 'http://example42.com/elasticsearch.deb'} }
+    it { should contain_exec('wget elasticsearch package') }
+  end
+
+  describe 'Test custom package source puppet://' do
+    let(:params) { {:package_source => 'puppet:///files/elasticsearch.deb'} }
+    it { should contain_file('elasticsearch package') }
+  end
+
   describe 'Test installation of a specific version' do
     let(:params) { {:version => '1.0.42' } }
     it { should contain_package('elasticsearch').with_ensure('1.0.42') }
