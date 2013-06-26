@@ -320,7 +320,16 @@ class elasticsearch (
   ### Definition of some variables used in the module
   $manage_package = $elasticsearch::bool_absent ? {
     true  => 'absent',
-    false => $elasticsearch::version,
+    false => $elasticsearch::install ? {
+      package => $elasticsearch::package_source ? {
+        ''      => $elasticsearch::version,
+        default => $::operatingsystem ? {
+          /(?i:Debian|Ubuntu|Mint)/ => 'present',
+          default                   => $elasticsearch::version,
+        },
+      },
+      default => $elasticsearch::version,
+    },
   }
 
   $manage_service_enable = $elasticsearch::bool_disableboot ? {
