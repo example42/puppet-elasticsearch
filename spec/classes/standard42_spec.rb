@@ -7,20 +7,50 @@ describe 'elasticsearch' do
   let(:facts) { { :ipaddress => '10.42.42.42' } }
 
   describe 'Test standard installation' do
-    it { should contain_package('elasticsearch').with_ensure('present') }
+    it { should contain_puppi__netinstall('netinstall_elasticsearch') }
     it { should contain_service('elasticsearch').with_ensure('running') }
     it { should contain_service('elasticsearch').with_enable('true') }
     it { should contain_file('elasticsearch.conf').with_ensure('present') }
   end
 
+  describe 'Test custom package source http://' do
+    let(:params) {
+      {:package_source => 'http://example42.com/elasticsearch.deb',
+       :install => 'package',
+       :version => 'present'}
+    }
+    it { should contain_exec('wget elasticsearch package') }
+  end
+
+  describe 'Test custom package source puppet://' do
+    let(:params) {
+      {:package_source => 'puppet:///files/elasticsearch.deb',
+       :install  => 'package',
+       :version  => 'present'}
+    }
+    it { should contain_file('elasticsearch package') }
+  end
+
+  describe 'Test custom package source on debian should automatically set the version to present if not specified otherwise' do
+    let(:params) { {:package_source => 'http://example42.com/elasticsearch.deb', :install => 'package'} }
+    let(:facts) { {:operatingsystem => 'Debian'} }
+    it { should contain_package('elasticsearch').with_ensure('present') }
+  end
+
+  describe 'Test custom package source on debian should automatically set the package provider to dpkg if not specified otherwise' do
+    let(:params) { {:package_source => 'http://example42.com/elasticsearch.deb', :install => 'package'} }
+    let(:facts) { {:operatingsystem => 'Debian'} }
+    it { should contain_package('elasticsearch').with_provider('dpkg') }
+  end
+
   describe 'Test installation of a specific version' do
-    let(:params) { {:version => '1.0.42' } }
+    let(:params) { {:install => 'package', :version => '1.0.42'} }
     it { should contain_package('elasticsearch').with_ensure('1.0.42') }
   end
 
   describe 'Test standard installation with monitoring and firewalling' do
-    let(:params) { {:monitor => true , :firewall => true, :port => '42', :protocol => 'tcp' } }
-    it { should contain_package('elasticsearch').with_ensure('present') }
+    let(:params) { {:install => 'package', :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp' } }
+    it { should contain_package('elasticsearch').with_ensure('0.20.6') }
     it { should contain_service('elasticsearch').with_ensure('running') }
     it { should contain_service('elasticsearch').with_enable('true') }
     it { should contain_file('elasticsearch.conf').with_ensure('present') }
@@ -29,7 +59,7 @@ describe 'elasticsearch' do
   end
 
   describe 'Test decommissioning - absent' do
-    let(:params) { {:absent => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
+    let(:params) { {:install => 'package', :absent => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
     it 'should remove Package[elasticsearch]' do should contain_package('elasticsearch').with_ensure('absent') end
     it 'should stop Service[elasticsearch]' do should contain_service('elasticsearch').with_ensure('stopped') end
     it 'should not enable at boot Service[elasticsearch]' do should contain_service('elasticsearch').with_enable('false') end
@@ -39,8 +69,8 @@ describe 'elasticsearch' do
   end
 
   describe 'Test decommissioning - disable' do
-    let(:params) { {:disable => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
-    it { should contain_package('elasticsearch').with_ensure('present') }
+    let(:params) { {:install => 'package', :disable => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
+    it { should contain_package('elasticsearch').with_ensure('0.20.6') }
     it 'should stop Service[elasticsearch]' do should contain_service('elasticsearch').with_ensure('stopped') end
     it 'should not enable at boot Service[elasticsearch]' do should contain_service('elasticsearch').with_enable('false') end
     it { should contain_file('elasticsearch.conf').with_ensure('present') }
@@ -49,8 +79,8 @@ describe 'elasticsearch' do
   end
 
   describe 'Test decommissioning - disableboot' do
-    let(:params) { {:disableboot => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
-    it { should contain_package('elasticsearch').with_ensure('present') }
+    let(:params) { {:install => 'package', :disableboot => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
+    it { should contain_package('elasticsearch').with_ensure('0.20.6') }
     it { should_not contain_service('elasticsearch').with_ensure('present') }
     it { should_not contain_service('elasticsearch').with_ensure('absent') }
     it 'should not enable at boot Service[elasticsearch]' do should contain_service('elasticsearch').with_enable('false') end
@@ -60,7 +90,7 @@ describe 'elasticsearch' do
   end
 
   describe 'Test noops mode' do
-    let(:params) { {:noops => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
+    let(:params) { {:install => 'package', :noops => true, :monitor => true , :firewall => true, :port => '42', :protocol => 'tcp'} }
     it { should contain_package('elasticsearch').with_noop('true') }
     it { should contain_service('elasticsearch').with_noop('true') }
     it { should contain_file('elasticsearch.conf').with_noop('true') }
