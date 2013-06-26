@@ -18,7 +18,7 @@ class elasticsearch::prerequisites {
 
   include java
 
-  if $elasticsearch::source != 'package' {
+  if $elasticsearch::install != 'package' {
     git::reposync { 'elasticsearch-servicewrapper':
       source_url      => 'https://github.com/elasticsearch/elasticsearch-servicewrapper.git',
       destination_dir => "${elasticsearch::install_destination}/elasticsearch-servicewrapper",

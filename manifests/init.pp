@@ -164,6 +164,16 @@
 #   Basically you can run a dryrun for this specific module if you set
 #   this to true. Default: false
 #
+# [*package_source*]
+#   The URL from where to download the Package (http or puppet)
+#
+# [*package_provider*]
+#   The Provider to use for the package resource
+#
+# [*package_path*]
+#   The Path where to save the Package for installation
+#
+#
 # Default class params - As defined in elasticsearch::params.
 # Note that these variables are mostly defined and used in the module itself,
 # overriding the default values might not affected all the involved components.
@@ -269,6 +279,9 @@ class elasticsearch (
   $audit_only            = params_lookup( 'audit_only' , 'global' ),
   $noops                 = params_lookup( 'noops' ),
   $package               = params_lookup( 'package' ),
+  $package_source        = params_lookup( 'package_source' ),
+  $package_provider      = params_lookup( 'package_provider' ),
+  $package_path          = params_lookup( 'package_path' ),
   $service               = params_lookup( 'service' ),
   $service_status        = params_lookup( 'service_status' ),
   $process               = params_lookup( 'process' ),
@@ -303,10 +316,20 @@ class elasticsearch (
   $bool_audit_only=any2bool($audit_only)
   $bool_noops=any2bool($noops)
 
+
   ### Definition of some variables used in the module
   $manage_package = $elasticsearch::bool_absent ? {
     true  => 'absent',
-    false => $elasticsearch::version,
+    false => $elasticsearch::install ? {
+      package => $elasticsearch::package_source ? {
+        ''      => $elasticsearch::version,
+        default => $::operatingsystem ? {
+          /(?i:Debian|Ubuntu|Mint)/ => 'present',
+          default                   => $elasticsearch::version,
+        },
+      },
+      default => $elasticsearch::version,
+    },
   }
 
   $manage_service_enable = $elasticsearch::bool_disableboot ? {
@@ -395,6 +418,26 @@ class elasticsearch (
       default => "${elasticsearch::home}/config/",
     },
     default => $elasticsearch::config_dir,
+  }
+
+  $package_filename = url_parse($elasticsearch::package_source, 'filename')
+  $real_package_path = $elasticsearch::package_path ? {
+    ''      => $elasticsearch::package_source ? {
+      ''      => undef,
+      default => "${elasticsearch::install_destination}/${elasticsearch::package_filename}",
+    },
+    default => $elasticsearch::package_path,
+  }
+
+  $real_package_provider = $elasticsearch::package_provider ? {
+    ''      => $elasticsearch::package_source ? {
+      ''      => undef,
+      default => $::operatingsystem ? {
+          /(?i:Debian|Ubuntu|Mint)/ => 'dpkg',
+          default                   => undef,
+      },
+    },
+    default => $elasticsearch::package_provider,
   }
 
   ### Managed resources
