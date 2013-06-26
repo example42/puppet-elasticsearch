@@ -429,6 +429,17 @@ class elasticsearch (
     default => $elasticsearch::package_path,
   }
 
+  $real_package_provider = $elasticsearch::package_provider ? {
+    ''      => $elasticsearch::package_source ? {
+      ''      => undef,
+      default => $::operatingsystem ? {
+          /(?i:Debian|Ubuntu|Mint)/ => 'dpkg',
+          default                   => undef,
+      },
+    },
+    default => $elasticsearch::package_provider,
+  }
+
   ### Managed resources
 
   if $elasticsearch::bool_install_prerequisites {

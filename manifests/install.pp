@@ -44,7 +44,7 @@ class elasticsearch::install {
       package { 'elasticsearch':
         ensure    => $elasticsearch::manage_package,
         name      => $elasticsearch::package,
-        provider  => $elasticsearch::package_provider,
+        provider  => $elasticsearch::real_package_provider,
         source    => $elasticsearch::real_package_path,
         noop      => $elasticsearch::bool_noops,
       }

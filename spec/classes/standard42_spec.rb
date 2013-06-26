@@ -37,6 +37,12 @@ describe 'elasticsearch' do
     it { should contain_package('elasticsearch').with_ensure('present') }
   end
 
+  describe 'Test custom package source on debian should automatically set the package provider to dpkg if not specified otherwise' do
+    let(:params) { {:package_source => 'http://example42.com/elasticsearch.deb', :install => 'package'} }
+    let(:facts) { {:operatingsystem => 'Debian'} }
+    it { should contain_package('elasticsearch').with_provider('dpkg') }
+  end
+
   describe 'Test installation of a specific version' do
     let(:params) { {:install => 'package', :version => '1.0.42'} }
     it { should contain_package('elasticsearch').with_ensure('1.0.42') }
