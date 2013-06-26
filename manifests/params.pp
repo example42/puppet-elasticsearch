@@ -18,7 +18,7 @@ class elasticsearch::params {
 
   $install_prerequisites = true
   $create_user           = true
-  $install               = 'package'
+  $install               = 'source'
   $java_opts             = undef
 
   $install_source        = ''
@@ -106,7 +106,7 @@ class elasticsearch::params {
   $template = ''
   $options = ''
   $service_autorestart = true
-  $version = 'present'
+  $version = '0.20.6'
   $absent = false
   $disable = false
   $disableboot = false
