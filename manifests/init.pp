@@ -398,11 +398,12 @@ class elasticsearch (
 
   ### Internal vars depending on user's input
   $real_install_source = $elasticsearch::install_source ? {
-    ''      => "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${elasticsearch::version}.zip",
+    ''      => "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${elasticsearch::version}.tar.gz",
     default => $elasticsearch::install_source,
   }
-  $created_dirname = url_parse($elasticsearch::real_install_source,'filedir')
-  $home = "${elasticsearch::install_destination}/${elasticsearch::created_dirname}"
+  $created_dirname_tar = url_parse($real_install_source,'filedir')
+  $created_dirname = regsubst($created_dirname_tar,'.tar','')
+  $home = "${elasticsearch::install_destination}/${created_dirname}"
 
   $real_config_file = $elasticsearch::config_file ? {
     ''      => $elasticsearch::install ? {
