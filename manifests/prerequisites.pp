@@ -34,19 +34,19 @@ class elasticsearch::prerequisites {
     }
     file { "${elasticsearch::home}/bin/service/elasticsearch":
       ensure  => present,
-      mode    => 0755,
+      mode    => '0755',
       owner   => $elasticsearch::process_user,
       group   => $elasticsearch::process_user,
       content => template($elasticsearch::init_script_template),
       before  => Class['elasticsearch::service'],
       require => Git::Reposync['elasticsearch-servicewrapper'],
     }
-    file { "/etc/init.d/elasticsearch":
+    file { '/etc/init.d/elasticsearch':
       ensure  => "${elasticsearch::home}/bin/service/elasticsearch",
     }
     file { "${elasticsearch::home}/bin/service/elasticsearch.conf":
       ensure  => present,
-      mode    => 0644,
+      mode    => '0644',
       owner   => $elasticsearch::process_user,
       group   => $elasticsearch::process_user,
       content => template($elasticsearch::init_config_template),
@@ -55,7 +55,7 @@ class elasticsearch::prerequisites {
     }
     file { "${elasticsearch::home}/logs":
       ensure  => directory,
-      mode    => 0755,
+      mode    => '0755',
       owner   => $elasticsearch::process_user,
       group   => $elasticsearch::process_user,
       before  => Class['elasticsearch::service'],

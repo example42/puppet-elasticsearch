@@ -20,21 +20,19 @@ class elasticsearch::install {
       if ($elasticsearch::package_source != '') or ($elasticsearch::package_source == undef) {
         case $elasticsearch::package_source {
           /^http/: {
-            exec {
-              "wget elasticsearch package":
-                command => "wget -O ${elasticsearch::real_package_path} ${elasticsearch::package_source}",
-                creates => "${elasticsearch::real_package_path}",
-                unless  => "test -f ${elasticsearch::real_package_path}",
-                before  => Package['elasticsearch']
+            exec { 'wget elasticsearch package':
+              command => "wget -O ${elasticsearch::real_package_path} ${elasticsearch::package_source}",
+              creates => $elasticsearch::real_package_path,
+              unless  => "test -f ${elasticsearch::real_package_path}",
+              before  => Package['elasticsearch']
             }
           }
           /^puppet/: {
-            file {
-              'elasticsearch package':
-                path    => "${elasticsearch::real_package_path}",
-                ensure  => $elasticsearch::manage_file,
-                source  => $elasticsearch::package_source,
-                before  => Package['elasticsearch']
+            file { 'elasticsearch package':
+              ensure  => $elasticsearch::manage_file,
+              path    => $elasticsearch::real_package_path,
+              source  => $elasticsearch::package_source,
+              before  => Package['elasticsearch']
             }
           }
           default: {}
@@ -63,7 +61,7 @@ class elasticsearch::install {
       }
 
       file { 'elasticsearch_link':
-        ensure => "${elasticsearch::home}" ,
+        ensure => $elasticsearch::home,
         path   => "${elasticsearch::install_destination}/elasticsearch",
         noop   => $elasticsearch::bool_noops,
       }
@@ -84,7 +82,7 @@ class elasticsearch::install {
       }
 
       file { 'elasticsearch_link':
-        ensure => "${elasticsearch::home}" ,
+        ensure => $elasticsearch::home,
         path   => "${elasticsearch::install_destination}/elasticsearch",
         noop   => $elasticsearch::bool_noops,
       }
