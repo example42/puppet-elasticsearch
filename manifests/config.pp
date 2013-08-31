@@ -23,7 +23,7 @@ class elasticsearch::config {
     content => $elasticsearch::manage_file_content,
     replace => $elasticsearch::manage_file_replace,
     audit   => $elasticsearch::manage_audit,
-    noop    => $elasticsearch::bool_noops,
+    noop    => $elasticsearch::noops,
   }
 
   # The whole elasticsearch configuration directory can be recursively overriden
@@ -37,7 +37,7 @@ class elasticsearch::config {
       force   => $elasticsearch::bool_source_dir_purge,
       replace => $elasticsearch::manage_file_replace,
       audit   => $elasticsearch::manage_audit,
-      noop    => $elasticsearch::bool_noops,
+      noop    => $elasticsearch::noops,
     }
   }
 

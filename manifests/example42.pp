@@ -12,7 +12,7 @@ class elasticsearch::example42 {
       ensure    => $elasticsearch::manage_file,
       variables => $classvars,
       helper    => $elasticsearch::puppi_helper,
-      noop      => $elasticsearch::bool_noops,
+      noop      => $elasticsearch::noops,
     }
   }
 
@@ -26,7 +26,7 @@ class elasticsearch::example42 {
         target   => $elasticsearch::monitor_target,
         tool     => $elasticsearch::monitor_tool,
         enable   => $elasticsearch::manage_monitor,
-        noop     => $elasticsearch::bool_noops,
+        noop     => $elasticsearch::noops,
       }
     }
     if $elasticsearch::service != '' {
@@ -38,7 +38,7 @@ class elasticsearch::example42 {
         argument => $elasticsearch::process_args,
         tool     => $elasticsearch::monitor_tool,
         enable   => $elasticsearch::manage_monitor,
-        noop     => $elasticsearch::bool_noops,
+        noop     => $elasticsearch::noops,
       }
     }
   }
@@ -55,7 +55,7 @@ class elasticsearch::example42 {
       direction   => 'input',
       tool        => $elasticsearch::firewall_tool,
       enable      => $elasticsearch::manage_firewall,
-      noop        => $elasticsearch::bool_noops,
+      noop        => $elasticsearch::noops,
     }
   }
 

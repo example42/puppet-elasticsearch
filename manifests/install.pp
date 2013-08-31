@@ -44,7 +44,7 @@ class elasticsearch::install {
         name      => $elasticsearch::package,
         provider  => $elasticsearch::real_package_provider,
         source    => $elasticsearch::real_package_path,
-        noop      => $elasticsearch::bool_noops,
+        noop      => $elasticsearch::noops,
       }
     }
 
@@ -57,13 +57,13 @@ class elasticsearch::install {
         destination_dir     => $elasticsearch::install_destination,
         owner               => $elasticsearch::process_user,
         group               => $elasticsearch::process_user,
-        noop                => $elasticsearch::bool_noops,
+        noop                => $elasticsearch::noops,
       }
 
       file { 'elasticsearch_link':
         ensure => $elasticsearch::home,
         path   => "${elasticsearch::install_destination}/elasticsearch",
-        noop   => $elasticsearch::bool_noops,
+        noop   => $elasticsearch::noops,
       }
     }
 
@@ -78,13 +78,13 @@ class elasticsearch::install {
         user        => $elasticsearch::process_user,
         auto_deploy => true,
         enable      => true,
-        noop        => $elasticsearch::bool_noops,
+        noop        => $elasticsearch::noops,
       }
 
       file { 'elasticsearch_link':
         ensure => $elasticsearch::home,
         path   => "${elasticsearch::install_destination}/elasticsearch",
-        noop   => $elasticsearch::bool_noops,
+        noop   => $elasticsearch::noops,
       }
 
     }

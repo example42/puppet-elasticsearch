@@ -22,7 +22,7 @@ class elasticsearch::service {
         enable     => $elasticsearch::manage_service_enable,
         hasstatus  => $elasticsearch::service_status,
         pattern    => $elasticsearch::process,
-        noop       => $elasticsearch::bool_noops,
+        noop       => $elasticsearch::noops,
       }
     }
 
@@ -33,7 +33,7 @@ class elasticsearch::service {
         enable     => $elasticsearch::manage_service_enable,
         hasstatus  => $elasticsearch::service_status,
         pattern    => $elasticsearch::process,
-        noop       => $elasticsearch::bool_noops,
+        noop       => $elasticsearch::noops,
         provider   => 'init',
       }
     }
