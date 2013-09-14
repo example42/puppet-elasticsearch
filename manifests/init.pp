@@ -395,7 +395,7 @@ class elasticsearch (
     default   => template($elasticsearch::template),
   }
 
-  ### Internal vars depending on user's input
+  ### Internal vars depending on user's input
   $real_install_source = $elasticsearch::install_source ? {
     ''      => "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-${elasticsearch::version}.tar.gz",
     default => $elasticsearch::install_source,
@@ -463,7 +463,7 @@ class elasticsearch (
     include $elasticsearch::my_class
   }
 
-  ### Example42 extensions
+  ### Example42 extensions
   if $elasticsearch::bool_puppi == true
   or $elasticsearch::bool_monitor == true
   or $elasticsearch::bool_firewall == true {
