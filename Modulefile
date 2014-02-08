@@ -10,4 +10,4 @@ description 'This module installs and manages elasticsearch. Check README for de
 dependency 'example42/puppi', '>=2.0.0'
 dependency 'example42/firewall', '>=2.0.0'
 dependency 'example42/monitor', '>=2.0.0'
-dependency 'example42/git', '>-2.0.0'
+dependency 'example42/git', '>=2.0.0'
