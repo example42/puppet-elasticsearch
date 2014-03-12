@@ -19,7 +19,7 @@ class elasticsearch::params {
   $install_prerequisites = true
   $create_user           = true
   $install               = 'source'
-  $java_opts             = undef
+  $java_heap_size        = '1024'
 
   $install_source        = ''
   $install_destination   = '/opt'

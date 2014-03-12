@@ -1,6 +1,6 @@
 # File Managed By Puppet
 set.default.ES_HOME=<%= scope.lookupvar('elasticsearch::home') %>
-set.default.ES_HEAP_SIZE=1024
+set.default.ES_HEAP_SIZE=<%= scope.lookupvar('elasticsearch::java_heap_size') %>
 
 #********************************************************************
 # Wrapper Timeout Properties

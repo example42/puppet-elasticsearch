@@ -254,7 +254,7 @@ class elasticsearch (
   $install_destination   = params_lookup( 'install_destination' ),
   $init_config_template  = params_lookup( 'init_config_template' ),
   $init_script_template  = params_lookup( 'init_script_template' ),
-  $java_opts             = params_lookup( 'java_opts' ),
+  $java_heap_size        = params_lookup( 'java_heap_size' ),
   $my_class              = params_lookup( 'my_class' ),
   $source                = params_lookup( 'source' ),
   $source_dir            = params_lookup( 'source_dir' ),
