@@ -1,5 +1,5 @@
 name 'example42-elasticsearch'
-version '2.0.15'
+version '2.0.16'
 
 author 'Alessandro Franceschi'
 license 'Apache2'
@@ -8,6 +8,4 @@ source 'https://github.com/example42/puppet-elasticsearch'
 summary 'Puppet module for elasticsearch'
 description 'This module installs and manages elasticsearch. Check README for details.'
 dependency 'example42/puppi', '>=2.0.0'
-dependency 'example42/firewall', '>=2.0.0'
-dependency 'example42/monitor', '>=2.0.0'
 dependency 'example42/git', '>=2.0.0'
