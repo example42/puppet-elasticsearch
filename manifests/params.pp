@@ -110,6 +110,8 @@ class elasticsearch::params {
   $absent = false
   $disable = false
   $disableboot = false
+  $config_file_init_source = ''
+  $config_file_init_template = ''
 
   ### General module variables that can have a site or per module default
   $monitor = false
