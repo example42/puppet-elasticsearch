@@ -100,6 +100,7 @@ class elasticsearch::params {
 
   # General Settings
   $my_class = ''
+  $dependency_class = ''
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
