@@ -26,17 +26,19 @@ class elasticsearch::config {
     noop    => $elasticsearch::noops,
   }
 
-  file { 'elasticsearch.init.conf':
-    ensure  => $elasticsearch::manage_file,
-    path    => $elasticsearch::config_file_init,
-    mode    => $elasticsearch::config_file_mode,
-    owner   => $elasticsearch::config_file_owner,
-    group   => $elasticsearch::config_file_group,
-    source  => $elasticsearch::manage_config_file_init_source,
-    content => $elasticsearch::manage_config_file_init_template,
-    replace => $elasticsearch::manage_file_replace,
-    audit   => $elasticsearch::manage_audit,
-    noop    => $elasticsearch::noops,
+  if ($elasticsearch::config_file_init_source or $elasticsearch::config_file_init_template) {
+    file { 'elasticsearch.init.conf':
+      ensure  => $elasticsearch::manage_file,
+      path    => $elasticsearch::config_file_init,
+      mode    => $elasticsearch::config_file_mode,
+      owner   => $elasticsearch::config_file_owner,
+      group   => $elasticsearch::config_file_group,
+      source  => $elasticsearch::manage_config_file_init_source,
+      content => $elasticsearch::manage_config_file_init_template,
+      replace => $elasticsearch::manage_file_replace,
+      audit   => $elasticsearch::manage_audit,
+      noop    => $elasticsearch::noops,
+    }
   }
 
   # The whole elasticsearch configuration directory can be recursively overriden

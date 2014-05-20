@@ -5,12 +5,6 @@
 #
 # == Parameters
 #
-# [*install_prerequisites*]
-#   Set to false if you don't want install this module's prerequisites.
-#   (It may be useful if the resources provided the prerequisites are already
-#   managed by some other modules). Default: true
-#   Prerequisites are based on Example42 modules set.
-#
 # [*create_user*]
 #   Set to true if you want the module to create the process user of elasticsearch
 #   (as defined in $logstagh::process_user). Default: true
@@ -256,7 +250,6 @@
 # See README for usage patterns.
 #
 class elasticsearch (
-  $install_prerequisites      = params_lookup( 'install_prerequisites' ),
   $create_user                = params_lookup( 'create_user' ),
   $install                    = params_lookup( 'install' ),
   $install_source             = params_lookup( 'install_source' ),
@@ -314,7 +307,6 @@ class elasticsearch (
   $protocol                   = params_lookup( 'protocol' )
   ) inherits elasticsearch::params {
 
-  $bool_install_prerequisites=any2bool($install_prerequisites)
   $bool_create_user=any2bool($create_user)
   $bool_source_dir_purge=any2bool($source_dir_purge)
   $bool_service_autorestart=any2bool($service_autorestart)
@@ -463,11 +455,6 @@ class elasticsearch (
   }
 
   ### Managed resources
-
-  if $elasticsearch::bool_install_prerequisites {
-    class { 'elasticsearch::prerequisites':
-    }
-  }
 
   class { 'elasticsearch::install': }
 

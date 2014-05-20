@@ -16,7 +16,6 @@ class elasticsearch::params {
 
   ### Application related parameters
 
-  $install_prerequisites = true
   $create_user           = true
   $install               = 'source'
   $java_heap_size        = '1024'
@@ -100,7 +99,7 @@ class elasticsearch::params {
 
   # General Settings
   $my_class = ''
-  $dependency_class = ''
+  $dependency_class = 'elasticsearch::dependency'
   $source = ''
   $source_dir = ''
   $source_dir_purge = false

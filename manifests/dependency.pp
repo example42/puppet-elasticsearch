@@ -10,11 +10,11 @@
 #
 # This class is not intended to be used directly.
 # It's automatically included by elasticsearch if the parameter
-# install_prerequisites is set to true
+# dependency_class is set to this class
 # Note: This class may contain resources available on the
 # Example42 modules set
 #
-class elasticsearch::prerequisites {
+class elasticsearch::dependency {
 
   include java
 
