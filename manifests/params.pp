@@ -16,7 +16,6 @@ class elasticsearch::params {
 
   ### Application related parameters
 
-  $install_prerequisites = true
   $create_user           = true
   $install               = 'source'
   $java_heap_size        = '1024'
@@ -100,6 +99,7 @@ class elasticsearch::params {
 
   # General Settings
   $my_class = ''
+  $dependency_class = 'elasticsearch::dependency'
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
@@ -110,6 +110,8 @@ class elasticsearch::params {
   $absent = false
   $disable = false
   $disableboot = false
+  $config_file_init_source = ''
+  $config_file_init_template = ''
 
   ### General module variables that can have a site or per module default
   $monitor = false
