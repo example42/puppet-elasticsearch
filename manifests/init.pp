@@ -299,7 +299,9 @@ class elasticsearch (
   $log_dir               = params_lookup( 'log_dir' ),
   $log_file              = params_lookup( 'log_file' ),
   $port                  = params_lookup( 'port' ),
-  $protocol              = params_lookup( 'protocol' )
+  $protocol              = params_lookup( 'protocol' ),
+  $pre_install_java 	 = params_lookup( 'pre_install_java')
+
   ) inherits elasticsearch::params {
 
   $bool_install_prerequisites=any2bool($install_prerequisites)
@@ -314,6 +316,7 @@ class elasticsearch (
   $bool_firewall=any2bool($firewall)
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
+  $bool_pre_install_java=any2bool($pre_install_java)
 
 
   ### Definition of some variables used in the module
