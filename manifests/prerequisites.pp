@@ -16,7 +16,9 @@
 #
 class elasticsearch::prerequisites {
 
-  include java
+  if $elasticsearch::bool_pre_install_java == true {
+    include java
+  }
 
   if $elasticsearch::install != 'package' {
     git::reposync { 'elasticsearch-servicewrapper':

@@ -26,6 +26,10 @@ class elasticsearch::params {
   $init_config_template  = 'elasticsearch/elasticsearch.conf.erb'
   $init_script_template  = 'elasticsearch/elasticsearch.init.erb'
 
+  ### prerequisite 
+
+  $pre_install_java	= true
+
   $package = $::operatingsystem ? {
     default => 'elasticsearch',
   }
