@@ -447,6 +447,7 @@ class elasticsearch (
 
   if $elasticsearch::bool_install_prerequisites {
     class { 'elasticsearch::prerequisites':
+      require => Class['elasticsearch::install'],
     }
   }
 
