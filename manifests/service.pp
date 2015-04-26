@@ -17,24 +17,24 @@ class elasticsearch::service {
 
     package: {
       service { 'elasticsearch':
-        ensure     => $elasticsearch::manage_service_ensure,
-        name       => $elasticsearch::service,
-        enable     => $elasticsearch::manage_service_enable,
-        hasstatus  => $elasticsearch::service_status,
-        pattern    => $elasticsearch::process,
-        noop       => $elasticsearch::noops,
+        ensure    => $elasticsearch::manage_service_ensure,
+        name      => $elasticsearch::service,
+        enable    => $elasticsearch::manage_service_enable,
+        hasstatus => $elasticsearch::service_status,
+        pattern   => $elasticsearch::process,
+        noop      => $elasticsearch::noops,
       }
     }
 
     source,puppi: {
       service { 'elasticsearch':
-        ensure     => $elasticsearch::manage_service_ensure,
-        name       => $elasticsearch::service,
-        enable     => $elasticsearch::manage_service_enable,
-        hasstatus  => $elasticsearch::service_status,
-        pattern    => $elasticsearch::process,
-        noop       => $elasticsearch::noops,
-        provider   => 'init',
+        ensure    => $elasticsearch::manage_service_ensure,
+        name      => $elasticsearch::service,
+        enable    => $elasticsearch::manage_service_enable,
+        hasstatus => $elasticsearch::service_status,
+        pattern   => $elasticsearch::process,
+        noop      => $elasticsearch::noops,
+        provider  => 'init',
       }
     }
 

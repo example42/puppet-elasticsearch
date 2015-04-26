@@ -300,7 +300,7 @@ class elasticsearch (
   $log_file              = params_lookup( 'log_file' ),
   $port                  = params_lookup( 'port' ),
   $protocol              = params_lookup( 'protocol' ),
-  $pre_install_java 	 = params_lookup( 'pre_install_java')
+  $pre_install_java      = params_lookup( 'pre_install_java')
 
   ) inherits elasticsearch::params {
 

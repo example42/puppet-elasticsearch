@@ -29,10 +29,10 @@ class elasticsearch::install {
           }
           /^puppet/: {
             file { 'elasticsearch package':
-              ensure  => $elasticsearch::manage_file,
-              path    => $elasticsearch::real_package_path,
-              source  => $elasticsearch::package_source,
-              before  => Package['elasticsearch']
+              ensure => $elasticsearch::manage_file,
+              path   => $elasticsearch::real_package_path,
+              source => $elasticsearch::package_source,
+              before => Package['elasticsearch']
             }
           }
           default: {}
@@ -40,11 +40,11 @@ class elasticsearch::install {
       }
 
       package { 'elasticsearch':
-        ensure    => $elasticsearch::manage_package,
-        name      => $elasticsearch::package,
-        provider  => $elasticsearch::real_package_provider,
-        source    => $elasticsearch::real_package_path,
-        noop      => $elasticsearch::noops,
+        ensure   => $elasticsearch::manage_package,
+        name     => $elasticsearch::package,
+        provider => $elasticsearch::real_package_provider,
+        source   => $elasticsearch::real_package_path,
+        noop     => $elasticsearch::noops,
       }
     }
 
@@ -53,11 +53,11 @@ class elasticsearch::install {
         require elasticsearch::user
       }
       puppi::netinstall { 'netinstall_elasticsearch':
-        url                 => $elasticsearch::real_install_source,
-        destination_dir     => $elasticsearch::install_destination,
-        owner               => $elasticsearch::process_user,
-        group               => $elasticsearch::process_user,
-        noop                => $elasticsearch::noops,
+        url             => $elasticsearch::real_install_source,
+        destination_dir => $elasticsearch::install_destination,
+        owner           => $elasticsearch::process_user,
+        group           => $elasticsearch::process_user,
+        noop            => $elasticsearch::noops,
       }
 
       file { 'elasticsearch_link':
